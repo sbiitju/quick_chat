@@ -1,0 +1,42 @@
+name: quick_chat
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.6
+  go_router: ^13.2.4
+  flutter_screenutil: ^5.9.0
+  dartz: 0.10.1
+  get_it: ^7.6.7
+  pretty_dio_logger: ^1.3.1
+  logger: ^2.1.0
+  shared_preferences: ^2.2.2
+  shimmer: ^3.0.0
+  lottie: ^3.1.0
+  intl: ^0.18.0
+
+
+
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+flutter:
+
+  uses-material-design: true
