@@ -15,7 +15,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       redirect: (context, state) {
-        return "/${Routes.landing}";
+        return "/${Routes.auth}";
       },
     ),
     GoRoute(
