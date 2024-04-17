@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:quick_chat/common/services/local_notification/android_notification_setup.dart';
@@ -24,7 +25,9 @@ class FirebaseService {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
-
+      FirebaseFirestore.instance.settings = const Settings(
+        persistenceEnabled: true,
+      );
       _firebaseMessaging = FirebaseMessaging.instance;
       await _requestPermissions();
       final apns = await _firebaseMessaging.getAPNSToken();
@@ -34,16 +37,17 @@ class FirebaseService {
         await setupInteractedMessage();
       }
       if (Platform.isAndroid) {
-        androidNotificationSetUp();
+        await _setupAndroid();
       }
     } catch (e) {
-      print('Error subscribing to topic: $e');
+      Log.error(e.toString());
     }
   }
 
   Future<void> _setupAndroid() async {
     retrieveFCMToken();
     _setupTokenRefreshListeners();
+    androidNotificationSetUp();
   }
 
   Future<void> setupInteractedMessage() async {
@@ -52,37 +56,7 @@ class FirebaseService {
         LocalNotificationService();
     await localNotificationService.setup();
 
-    RemoteMessage? initialMessage =
-        await FirebaseMessaging.instance.getInitialMessage();
-
-    /// handle navigation logic
-    if (initialMessage != null) {
-      _handleMessage(initialMessage);
-    }
   }
-
-  // Future<void> setupInteractedMessageForAndroid() async {
-  //
-  //
-  //
-  //   /// Get any messages which caused the application to open from
-  //   /// a terminated state.
-  //   RemoteMessage? initialMessage =
-  //   await FirebaseMessaging.instance.getInitialMessage();
-  //
-  //   /// handle navigation logic
-  //   if (initialMessage != null) {
-  //     _handleMessage(initialMessage);
-  //   }
-  //
-  //   /// Also handle any interaction when the app is in the background via a
-  //   /// Stream listener
-  //   FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
-  //
-  //   /// Also handle any interaction when the app is in the foreground via a
-  //   /// Stream listener
-  //   FirebaseMessaging.onMessage.listen(_showNotification);
-  // }
 
   Future<void> _iOSSetup() async {
     try {
@@ -128,15 +102,8 @@ class FirebaseService {
 
   Future<String?> retrieveFCMToken() async {
     String? token = await _firebaseMessaging.getToken();
+    print('FCM Token: $token');
     return token;
-  }
-
-  Future<void> _showNotification(
-    RemoteMessage remoteMessage,
-  ) async {
-    await LocalNotificationService().showNotification(
-      remoteMessage: remoteMessage,
-    );
   }
 
   /// Refresh FCM Token
@@ -150,15 +117,6 @@ class FirebaseService {
     } catch (e) {
       Log.error(e.toString());
     }
-  }
-
-  /// Handle Navigation when tapped on the Push Notification while App is closed
-  /// or in the background
-  Future<void> _handleMessage(RemoteMessage message) async {
-    Map<String, dynamic> data = message.data;
-
-    /// Top-Level handle notification method
-    // handleMessage(data);
   }
 
   Future<void> _requestPermissions() async {
@@ -178,19 +136,9 @@ class FirebaseService {
   }
 }
 
-Future<void> _handleNotificationTap(RemoteMessage message) async {
-  // Navigator.of(context).push(MaterialPageRoute(
-  //   builder: (context) => NotificationDialog(
-  //     title: message.notification?.title ?? 'Notification',
-  //     content: message.notification?.body ?? 'Content',
-  //   ),
-  // ));
-}
-
 Future<void> showNotification(
   RemoteMessage remoteMessage,
 ) async {
-  print("Show Notification");
   await LocalNotificationService().showNotification(
     remoteMessage: remoteMessage,
   );

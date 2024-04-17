@@ -17,10 +17,10 @@ class AppService {
       appRouter.routerDelegate.navigatorKey.currentContext!;
 
   static init() async {
+    _setBuildConfig();
     WidgetsFlutterBinding.ensureInitialized();
     _setupFirebase();
     await di.init();
-    _setBuildConfig();
   }
 
   static void _setBuildConfig() {

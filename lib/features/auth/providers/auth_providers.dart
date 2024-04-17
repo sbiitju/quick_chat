@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -43,6 +44,16 @@ class AuthNotifier extends StateNotifier<User?> {
       await FirebaseAuth.instance.signInWithCredential(credential);
 
       state = userCredential.user;
+      try{
+        print('User: ${userCredential.user!.uid}');
+        await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
+          'displayName': state?.displayName,
+          'email': state?.email,
+          'photoURL': state?.photoURL, // You can set the profile photo URL here
+        });
+      }catch(e){
+        print('Error: $e');
+      }
     } catch (e) {
       print('Failed to sign in with Google: $e');
       rethrow;

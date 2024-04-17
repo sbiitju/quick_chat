@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,15 +12,33 @@ class AuthScreen extends StatelessWidget {
       appBar: AppBar(title:  TextButton(child: Text('Auth'),onPressed: (){
         FirebaseAuth.instance.signOut();
       },)),
-      body:  Center(
-        child: TextButton(
-          onPressed: () {
-          onGoogleSignInEvent().then((value) {
-            print(value.user?.displayName);
-          });
-          },
-          child: const Text('Go to Home'),
-        )
+      body:  Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () {
+            onGoogleSignInEvent().then((value) {
+              print(value.user?.displayName);
+            });
+            },
+            child: const Text('Go to Home'),
+          ),
+          TextButton(
+            onPressed: () async {
+              final state = FirebaseAuth.instance.currentUser;
+              try{
+                await FirebaseFirestore.instance.collection('users').doc(state?.uid).set({
+                  'displayName': state?.displayName,
+                  'email': state?.email,
+                  'photoURL': state?.photoURL, // You can set the profile photo URL here
+                });
+              }catch(e){
+                print('Error: $e');
+              }
+            },
+            child: const Text('Add Data'),
+          ),
+        ],
       ),
     );
   }
