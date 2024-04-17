@@ -32,7 +32,7 @@ class AppService {
     );
   }
 
-  static void _setupFirebase() {
-    FirebaseService().initialize();
+  static Future<void> _setupFirebase() async {
+     FirebaseService().initialize();
   }
 }

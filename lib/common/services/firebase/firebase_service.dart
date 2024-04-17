@@ -34,7 +34,7 @@ class FirebaseService {
       await _firebaseMessaging.subscribeToTopic('Q-Chat');
       if (apns != null && Platform.isIOS) {
         await _iOSSetup();
-        await setupInteractedMessage();
+        await _setupInteractedMessage();
       }
       if (Platform.isAndroid) {
         await _setupAndroid();
@@ -50,7 +50,7 @@ class FirebaseService {
     androidNotificationSetUp();
   }
 
-  Future<void> setupInteractedMessage() async {
+  Future<void> _setupInteractedMessage() async {
     /// Initiate Local Notification Service
     LocalNotificationService localNotificationService =
         LocalNotificationService();
@@ -102,7 +102,7 @@ class FirebaseService {
 
   Future<String?> retrieveFCMToken() async {
     String? token = await _firebaseMessaging.getToken();
-    print('FCM Token: $token');
+    Log.info('FCM Token: $token');
     return token;
   }
 
