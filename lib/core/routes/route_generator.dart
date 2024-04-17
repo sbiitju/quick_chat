@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quick_chat/core/routes/routes.dart';
 import 'package:quick_chat/features/auth/presentation/screens/auth_screen.dart';
-import 'package:quick_chat/features/chat/presentation/screens/chat_screen.dart';
+import 'package:quick_chat/features/conversation/presentation/screens/conversation_screen.dart';
 import 'package:quick_chat/features/home/presentation/screens/home_screen.dart';
 
 import '../../common/widget/error_page.dart';
@@ -15,32 +14,26 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       redirect: (context, state) {
-        return "/${Routes.landing}";
+        return "/${Routes.auth}";
       },
     ),
     GoRoute(
-      name: Routes.landing,
-      path: "/${Routes.landing}",
-      builder: (context, state) => HomeScreen(),
+      name: Routes.auth,
+      path: "/${Routes.auth}",
+      builder: (context, state) => const AuthScreen(),
     ),
     GoRoute(
-        name: Routes.auth,
-        path: "/${Routes.auth}",
-        builder: (context, state) =>  const AuthScreen(),
-    ),
-    GoRoute(
-      name: Routes.home,
-      path: "/${Routes.home}",
-      builder: (context, state) =>  Container(),
-      routes: [
-        GoRoute(
-          name: Routes.chat,
-          path: Routes.chat,
-          builder: (context, state) => const ChatScreen(),
-        ),
-      ]
-    ),
-
+        name: Routes.home,
+        path: "/${Routes.home}",
+        builder: (context, state) => HomeScreen(),
+        routes: [
+          GoRoute(
+            name: Routes.conversation,
+            path: '${Routes.conversation}/:conversationId/:currentUserId',
+            builder: (context, state) => ConversationScreen(
+                conversationId: state.pathParameters['conversationId'] ?? "",
+                currentUserId: state.pathParameters['currentUserId'] ?? ""),
+          ),
+        ]),
   ],
-
 );
