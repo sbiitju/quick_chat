@@ -1,8 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:quick_chat/common/services/firebase/firebase_service.dart';
 import 'package:quick_chat/core/di/injection_container.dart' as di;
 import 'package:quick_chat/core/routes/route_generator.dart';
-import 'package:quick_chat/firebase_options.dart';
 import 'package:quick_chat/flavors/build_config.dart';
 import 'package:quick_chat/flavors/env_config.dart';
 import 'package:quick_chat/flavors/environment.dart';
@@ -19,9 +18,9 @@ class AppService {
 
   static init() async {
     WidgetsFlutterBinding.ensureInitialized();
+    _setupFirebase();
     await di.init();
     _setBuildConfig();
-    _setupFirebase();
   }
 
   static void _setBuildConfig() {
@@ -34,8 +33,6 @@ class AppService {
   }
 
   static void _setupFirebase() {
-    Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    FirebaseService().initialize();
   }
 }
