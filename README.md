@@ -1,5 +1,5 @@
 # quick_chat
-A simple chat application built using Flutter and Firebase. This app demonstrates user authentication (anonymous sign-in) and real-time messaging using Firebase Firestore. It uses Riverpod for state management, flutter_hooks for widget state, and go_router for navigation.
+A simple chat application built using Flutter and Firebase. This app demonstrates user authentication (google sign-in) and real-time messaging using Firebase Firestore. It uses Riverpod for state management, flutter_hooks for widget state, and go_router for navigation.
 
 ### Sample
 
@@ -12,7 +12,7 @@ Conversation Screen | Notification Screen
 -------------|-----------------
 ![alt text](images/3.jpeg "Conversation Screen") | ![alt text](images/4.jpeg "Notification Screen")
 
-## Sample Link
+## Apk & Video Link
 
 https://drive.google.com/drive/folders/1uFVcVjgmbWZBT5dl_SCRckKBa79-L6n7?usp=sharing
 
