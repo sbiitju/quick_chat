@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:quick_chat/core/provider/common_provider.dart';
 import 'package:quick_chat/core/services/firebase/firebase_service.dart';
-import 'package:quick_chat/features/home/providers/home_screen_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 class AuthDataSource {
@@ -40,6 +40,9 @@ class AuthDataSource {
   }
 }
 
-Provider<AuthDataSource> authDataSourceProvider = Provider((ref) =>
-    AuthDataSource(
-        ref.read(firebaseAuthProvider), ref.read(fireStoreProvider)));
+Provider<AuthDataSource> authDataSourceProvider = Provider(
+  (ref) => AuthDataSource(
+    ref.read(firebaseAuthProvider),
+    ref.read(fireStoreProvider),
+  ),
+);

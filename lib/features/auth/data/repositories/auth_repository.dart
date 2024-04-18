@@ -11,6 +11,10 @@ class AuthRepository {
     return _dataSource.signInWithGoogle();
   }
 
+  Future<void> signOut(){
+    return _dataSource.signOut();
+  }
+
   Future<void> saveUser(User user) async {
     return _dataSource.saveUser(user);
   }

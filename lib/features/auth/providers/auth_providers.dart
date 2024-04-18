@@ -38,7 +38,7 @@ class AuthNotifier extends StateNotifier<User?> {
 
   Future<void> signOut() async {
     try {
-      await FirebaseAuth.instance.signOut();
+      await _repository.signOut();
       state = null;
     } catch (e) {
       Log.error('Failed to sign out: $e');

@@ -29,15 +29,17 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       name: Routes.home,
       path: "/${Routes.home}",
-      builder: (context, state) => HomeScreen(),
+      builder: (context, state) => const HomeScreen(),
       routes: [
         GoRoute(
           name: Routes.conversation,
-          path: '${Routes.conversation}/:conversationId/:currentUserId/:fcmToken',
+          path:
+              '${Routes.conversation}/:conversationId/:currentUserId/:fcmToken/:name',
           builder: (context, state) => ConversationScreen(
               conversationId: state.pathParameters['conversationId'] ?? "",
               currentUserId: state.pathParameters['currentUserId'] ?? "",
-              fcmToken: state.pathParameters['fcmToken'] ?? "")
+              fcmToken: state.pathParameters['fcmToken'] ?? "",
+              name: state.pathParameters['name'] ?? ""),
         ),
       ],
     ),

@@ -1,11 +1,9 @@
 // providers/user_provider.dart
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quick_chat/core/provider/common_provider.dart';
 import 'package:quick_chat/features/home/data/data_sources/home_data_source_imp.dart';
 import 'package:quick_chat/features/home/data/repositories/home_repository_imp.dart';
 import 'package:quick_chat/features/home/domain/entities/user_entity.dart';
@@ -33,12 +31,3 @@ final userListProvider = FutureProvider<List<UserEntity>>((ref) async {
   );
 });
 
-final fireStoreProvider = Provider<FirebaseFirestore>((ref) {
-  Firebase.initializeApp();
-  return FirebaseFirestore.instance;
-});
-
-final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
-  Firebase.initializeApp();
-  return FirebaseAuth.instance;
-});

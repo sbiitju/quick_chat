@@ -1,6 +1,6 @@
+import 'package:quick_chat/core/provider/common_provider.dart';
 import 'package:quick_chat/features/conversation/data/data_sources/conversation_data_source_imp.dart';
 import 'package:quick_chat/features/conversation/data/models/conversation_response.dart';
-import 'package:quick_chat/features/home/providers/home_screen_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 abstract class ConversationDataSource {
