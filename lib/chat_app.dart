@@ -15,14 +15,14 @@ class ChatApp extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            themeMode:ThemeMode.system,
+            themeMode: ThemeMode.system,
             theme: ThemeData(
-                useMaterial3: true,
-                colorScheme: lightColorScheme,
+              useMaterial3: true,
+              colorScheme: lightColorScheme,
             ),
             darkTheme: ThemeData(
-                useMaterial3: true,
-                colorScheme: darkColorScheme,
+              useMaterial3: true,
+              colorScheme: darkColorScheme,
             ),
             routerConfig: appRouter,
           );

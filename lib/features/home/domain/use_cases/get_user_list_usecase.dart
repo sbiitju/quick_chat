@@ -1,5 +1,3 @@
-// core/usecases/get_user_list.dart
-
 import 'package:dartz/dartz.dart';
 import 'package:quick_chat/features/home/domain/entities/user_entity.dart';
 import 'package:quick_chat/features/home/domain/repositories/home_repository.dart';
@@ -13,3 +11,4 @@ class GetUserListUseCase {
     return await repository.getUserList();
   }
 }
+//TODO provider here

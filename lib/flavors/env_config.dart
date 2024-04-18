@@ -1,6 +1,6 @@
 
 import 'package:logger/logger.dart';
-import 'package:quick_chat/common/constants/app_values.dart';
+import 'package:quick_chat/core/constants/app_values.dart';
 
 class EnvConfig {
   final String appName;

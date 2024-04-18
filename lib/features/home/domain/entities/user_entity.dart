@@ -4,6 +4,7 @@ class UserEntity {
   final String photoUrl;
   final bool isActive;
   final String lastActive;
+  final String fcmToken;
 
   UserEntity({
     required this.name,
@@ -11,5 +12,6 @@ class UserEntity {
     required this.photoUrl,
     required this.isActive,
     required this.lastActive,
+    required this.fcmToken,
   });
 }

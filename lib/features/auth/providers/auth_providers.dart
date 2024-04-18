@@ -1,17 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quick_chat/core/utils/logger.dart';
+import 'package:quick_chat/features/auth/data/repositories/auth_repository.dart';
 
 // Create a provider for managing authentication state
 final authProvider = StateNotifierProvider<AuthNotifier, User?>((ref) {
-  return AuthNotifier();
+  final repository = ref.read(authRepositoryProvider);
+  return AuthNotifier(repository);
 });
 
 class AuthNotifier extends StateNotifier<User?> {
+  final AuthRepository _repository;
 
-  AuthNotifier() : super(null) {
-    // Check if user is already signed in on initialization
+  AuthNotifier(this._repository) : super(null) {
     _init();
   }
 
@@ -20,42 +21,17 @@ class AuthNotifier extends StateNotifier<User?> {
       final user = await FirebaseAuth.instance.authStateChanges().first;
       state = user;
     } catch (e) {
-      print('Failed to get user: $e');
+      Log.error("Failed to get user: ${e.toString()}");
     }
   }
 
   Future<void> signInWithGoogle() async {
     try {
-      final googleSignIn = GoogleSignIn();
-      final googleUser = await googleSignIn.signIn();
-
-      if (googleUser == null) {
-        throw Exception('Google sign in aborted or failed.');
-      }
-
-      final googleAuth = await googleUser.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      final userCredential =
-      await FirebaseAuth.instance.signInWithCredential(credential);
-
+      UserCredential userCredential = await _repository.signInWithGoogle();
       state = userCredential.user;
-      try{
-        print('User: ${userCredential.user!.uid}');
-        await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
-          'displayName': state?.displayName,
-          'email': state?.email,
-          'photoURL': state?.photoURL, // You can set the profile photo URL here
-        });
-      }catch(e){
-        print('Error: $e');
-      }
+      _repository.saveUser(userCredential.user!);
     } catch (e) {
-      print('Failed to sign in with Google: $e');
+      Log.error('Failed to sign in with Google: $e');
       rethrow;
     }
   }
@@ -65,7 +41,7 @@ class AuthNotifier extends StateNotifier<User?> {
       await FirebaseAuth.instance.signOut();
       state = null;
     } catch (e) {
-      print('Failed to sign out: $e');
+      Log.error('Failed to sign out: $e');
       rethrow;
     }
   }

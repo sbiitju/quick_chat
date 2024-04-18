@@ -11,10 +11,16 @@ class HomeRepositoryImp extends HomeRepository {
 
   @override
   Future<Either<String, List<UserEntity>>> getUserList() async {
-    final String currentUserEmail = FirebaseAuth.instance.currentUser?.email??"";
+    final String currentUserEmail =
+        FirebaseAuth.instance.currentUser?.email ?? "";
     final userListResponse = await homeDataSource.getUserList();
+
     return userListResponse.map((userList) {
-      return userList.where((user) => user.email != currentUserEmail).toList().map((e) => e.toEntity()).toList();
+      return userList
+          .where((user) => user.email != currentUserEmail)
+          .toList()
+          .map((e) => e.toEntity())
+          .toList();
     });
   }
 }

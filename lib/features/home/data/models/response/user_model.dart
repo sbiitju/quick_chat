@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:quick_chat/common/utils/extensions.dart';
+import 'package:quick_chat/core/utils/extensions.dart';
 import 'package:quick_chat/features/home/domain/entities/user_entity.dart';
 
 class UserResponse {
@@ -8,6 +8,7 @@ class UserResponse {
   final bool isActive;
   final Timestamp lastActive;
   final String photoURL;
+  final String fcmToken;
 
   UserResponse({
     required this.displayName,
@@ -15,6 +16,7 @@ class UserResponse {
     required this.isActive,
     required this.lastActive,
     required this.photoURL,
+    required this.fcmToken,
   });
 
   factory UserResponse.fromFirestore(DocumentSnapshot doc) {
@@ -26,6 +28,7 @@ class UserResponse {
       isActive: data['isActive'] ?? false,
       lastActive: data['lastActive'] ?? Timestamp.now(),
       photoURL: data['photoURL'] ?? '',
+      fcmToken: data['fcmToken'] ?? '',
     );
   }
 
@@ -36,6 +39,7 @@ class UserResponse {
       photoUrl: photoURL,
       isActive: isActive,
       lastActive: lastActive.toDate().formatToString(format: 'HH:mm:ss yyyy-MM-dd'),
+      fcmToken:fcmToken,
     );
   }
 }
