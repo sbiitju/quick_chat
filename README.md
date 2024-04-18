@@ -12,7 +12,7 @@ Conversation Screen | Notification Screen
 -------------|-----------------
 ![alt text](images/3.jpeg "Conversation Screen") | ![alt text](images/4.jpeg "Notification Screen")
 
-## Sample Link
+## Apk & Video Link
 
 https://drive.google.com/drive/folders/1uFVcVjgmbWZBT5dl_SCRckKBa79-L6n7?usp=sharing
 
