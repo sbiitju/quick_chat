@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
+import 'package:quick_chat/core/constants/app_keys.dart';
 import 'package:quick_chat/features/conversation/data/data_sources/conversation_datasource.dart';
 import 'package:quick_chat/features/conversation/data/models/conversation_response.dart';
 
@@ -90,8 +91,7 @@ class ConversationDataSourceImp extends ConversationDataSource {
 
   void sendFCMNotification(
       String fcmToken, String senderId, String message) async {
-    const String serverKey =
-        'AAAAnf_kv6o:APA91bHEDcnAeo4-MkScfTHByPgg7EMsLPAJFo7hp_OO48nzWrQ56qqHZ9HctQoFxRFR5kWn_X-XarMuxH9wEsi5heBdJDcqfdLCtiYjeW3vg2xoS2MLxq1qOxpOiAjPJNAl_JtYJ1bj'; // Replace with your FCM server key
+    const String serverKey =AppKeys.serverKey; // Replace with your FCM server key
     const String fcmUrl = 'https://fcm.googleapis.com/fcm/send';
 
     final Map<String, dynamic> body = {
