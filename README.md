@@ -14,11 +14,11 @@ Conversation Screen | Notification Screen
 
 ## Video Demo
 
-[Watch Quick Chat in action!](#) (https://www.example.com/quick-chat-demo)
+https://www.example.com/quick-chat-demo
 
 ## Download Link
 
-[Watch Quick Chat in action!](#) (https://www.example.com/quick-chat-demo)
+https://drive.google.com/drive/folders/1uFVcVjgmbWZBT5dl_SCRckKBa79-L6n7?usp=sharing
 
 ## Features
 
