@@ -11,3 +11,34 @@ Login Screen | Home Screen
 Conversation Screen | Notification Screen
 -------------|-----------------
 ![alt text](images/3.jpeg "Conversation Screen") | ![alt text](images/4.jpeg "Notification Screen")
+
+## Video Demo
+
+[Watch Quick Chat in action!](#) (https://www.example.com/quick-chat-demo)
+
+## Download Link
+
+[Watch Quick Chat in action!](#) (https://www.example.com/quick-chat-demo)
+
+## Features
+
+- **User Authentication**
+    - Anonymous sign-in for quick access.
+    - Google sign-in for authenticated access.
+
+- **Real-time Messaging**
+    - Chat with other users in real-time using Firebase Firestore.
+    - View ongoing conversations and send messages seamlessly.
+
+- **Notification System**
+    - Receive notifications for new messages.
+    - Stay updated with push notifications.
+
+- **Conversation Management**
+    - Interactive conversation screen with chat history.
+    - See who sent the message with timestamps.
+
+- **Routing and Navigation**
+    - Smooth navigation using go_router for a seamless user experience.
+
+
